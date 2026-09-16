@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nimbus — Build web apps visually, without code</title>
+  <meta name="description" content="Nimbus is a no-code web application builder. Design, connect, and publish responsive apps in minutes.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='32' y2='32' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%236366f1'/%3E%3Cstop offset='1' stop-color='%23d946ef'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3Crect x='8' y='15' width='4' height='9' rx='1.5' fill='%23fff'/%3E%3Crect x='14' y='9' width='4' height='15' rx='1.5' fill='%23fff' opacity='.8'/%3E%3Crect x='20' y='12' width='4' height='12' rx='1.5' fill='%23fff'/%3E%3C/svg%3E">
+</head>
+<body>
+
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="i-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M8.5 5.2v13.6c0 .6.7 1 1.2.7l10-6.8c.4-.3.4-1 0-1.3l-10-6.8c-.5-.3-1.2.1-1.2.6z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.8l5 5 10-11"/></symbol>
+  <symbol id="i-sparkle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4l1.8 5.2L19 11l-5.2 1.8L12 18l-1.8-5.2L5 11l5.2-1.8z"/><path d="M19 15.5l.9 2.1 2.1.9-2.1.9-.9 2.1-.9-2.1-2.1-.9 2.1-.9z" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/></symbol>
+  <symbol id="i-layout" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="7" height="8.5" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="5" rx="1.5"/><rect x="13.5" y="11" width="7" height="9.5" rx="1.5"/><rect x="3.5" y="14.5" width="7" height="6" rx="1.5"/></symbol>
+  <symbol id="i-monitor" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4" width="19" height="13" rx="2.5"/><path d="M8.5 20.5h7M12 17v3.5"/></symbol>
+  <symbol id="i-tablet" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="2.5" width="15" height="19" rx="3"/><path d="M10 18.5h4"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M10.5 18.5h3"/></symbol>
+  <symbol id="i-zap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2.5L3.5 13.5H11l-1 8L19.5 10.5H12z"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/></symbol>
+  <symbol id="i-palette" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 000 18c1.4 0 2.2-.9 2.2-2s-.8-1.6-.8-2.5c0-1 .8-1.8 1.9-1.8H17a4.5 4.5 0 004.5-4.5C21.5 6.5 17.3 3 12 3z"/><circle cx="8" cy="11.5" r="1.2" fill="currentColor"/><circle cx="11" cy="7.8" r="1.2" fill="currentColor"/><circle cx="15" cy="8.6" r="1.2" fill="currentColor"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.8-3.3 7.9-8 9-4.7-1.1-8-4.2-8-9V6z"/><path d="M9 12l2 2 4-4.5"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0113 0"/><path d="M16 5.2a3.5 3.5 0 010 5.8M18 20a6.5 6.5 0 00-3-5.4"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14.5 14.5 0 010 18M12 3a14.5 14.5 0 000 18"/></symbol>
+  <symbol id="i-chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9.5l6 6 6-6"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6.5h16M4 12h16M4 17.5h16"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 3.5l2.7 5.5 6 .9-4.4 4.2 1.1 6-5.4-2.8-5.4 2.8 1.1-6L3.3 9.9l6-.9z"/></symbol>
+  <symbol id="i-rocket" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1 1-.9 3.4-.9 3.4s2.4.1 3.4-.9"/><path d="M5 15.5c2.8-8 9.5-11.5 14.5-11.5 0 5-3.5 11.7-11.5 14.5z"/><circle cx="14.5" cy="9.5" r="1.6"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8.5L19 7.5V21H6z"/><path d="M14 3v4.5h4.5M9 13h6M9 16.5h6"/></symbol>
+  <symbol id="i-code" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 8L4 12l4.5 4M15.5 8L20 12l-4.5 4"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9.5" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/><circle cx="12" cy="15.5" r="1.2" fill="currentColor"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 7l8.5 6 8.5-6"/></symbol>
+  <symbol id="i-box" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8.5 4.6v8.8L12 21l-8.5-4.6V7.6z"/><path d="M3.5 7.7L12 12.5l8.5-4.8M12 12.5v8.3"/></symbol>
+  <symbol id="i-github" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 00-2.9 17.5c.5.1.6-.2.6-.4v-1.6c-2.7.6-3.3-1.3-3.3-1.3-.4-1.1-1-1.4-1-1.4-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.6 2.4 1.1 3 .9.1-.7.4-1.1.7-1.4-2.3-.2-4.6-1.1-4.6-4.9 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.2 2.7 1a9.4 9.4 0 015.5 0c1.9-1.2 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.8-2.3 4.6-4.6 4.9.4.3.7 1 .7 1.9v1.6c0 .2.2.5.6.4A9 9 0 0012 3z"/></symbol>
+  <symbol id="i-twitter" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 5.9c-.7.3-1.5.5-2.3.6a4 4 0 001.7-2.2c-.8.5-1.7.8-2.6 1a4 4 0 00-6.9 3.6A11.4 11.4 0 013.7 5.1a4 4 0 001.2 5.3c-.6 0-1.2-.2-1.7-.4a4 4 0 003.2 3.9 4.4 4.4 0 01-1.8.1 4 4 0 003.7 2.8A8 8 0 013 17.9a11.3 11.3 0 006.1 1.8c7.4 0 11.4-6.1 11.4-11.4v-.5c.8-.6 1.4-1.3 1.5-1.9z"/></symbol>
+  <symbol id="i-linkedin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="4" height="15.5" rx="1"/><circle cx="5.5" cy="6" r="1.9" fill="currentColor" stroke="none"/><path d="M11 19V11l3.5.5V13c.8-1.2 2-1.8 3.5-1.8 2.2 0 4 1.5 4 4.5v3.3"/></symbol>
+  <symbol id="i-youtube" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5.5" width="19" height="13" rx="3.5"/><path d="M10.5 9.5v5l4.6-2.5z" fill="currentColor" stroke="none"/></symbol>
+</svg>
+
+<header class="navbar">
+  <div class="container nav-inner">
+    <a class="logo" href="index.html">
+      <svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true">
+        <defs>
+          <linearGradient id="ng" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#6366f1"/><stop offset=".55" stop-color="#8b5cf6"/><stop offset="1" stop-color="#d946ef"/>
+          </linearGradient>
+        </defs>
+        <rect width="32" height="32" rx="8" fill="url(#ng)"/>
+        <rect x="8" y="15" width="4" height="9" rx="1.5" fill="#fff"/>
+        <rect x="14" y="9" width="4" height="15" rx="1.5" fill="#fff" opacity=".8"/>
+        <rect x="20" y="12" width="4" height="12" rx="1.5" fill="#fff"/>
+      </svg>
+      Nimbus
+    </a>
+    <nav class="nav-links">
+      <a class="nav-link" href="#features">Product</a>
+      <a class="nav-link" href="templates.html">Templates</a>
+      <a class="nav-link" href="#pricing">Pricing</a>
+      <a class="nav-link" href="#faq">FAQ</a>
+    </nav>
+    <div class="nav-actions">
+      <a class="nav-link" href="dashboard.html">Sign in</a>
+      <a class="btn btn-primary" href="dashboard.html">Start free <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"></use></svg></a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><svg class="icon"><use href="#i-menu"></use></svg></button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#features">Product</a>
+    <a href="templates.html">Templates</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#faq">FAQ</a>
+    <a class="btn btn-primary" href="dashboard.html">Start free</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-grid-lines"></div>
+  <div class="container hero-inner">
+    <a class="pill" href="dashboard.html"><span class="pill-dot"></span> New: AI-assisted building is here <svg class="icon arrow" aria-hidden="true"><use href="#i-arrow-right"></use></svg></a>
+    <h1 class="hero-title">Build production web apps<br><span class="grad">without writing code</span></h1>
+    <p class="hero-sub">Design, connect, and publish responsive applications in minutes. Drag-and-drop builder, live previews, and one-click deployment — no engineers required.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary btn-lg" href="dashboard.html">Start building — it's free <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"></use></svg></a>
+      <a class="btn btn-secondary btn-lg" href="#features"><svg class="icon" aria-hidden="true"><use href="#i-play"></use></svg> Watch demo</a>
+    </div>
+    <div class="hero-proof">
+      <div class="avatar-group">
+        <span class="avatar" style="background:#6366f1">AK</span>
+        <span class="avatar" style="background:#0ea5e9">MS</span>
+        <span class="avatar" style="background:#f59e0b">JT</span>
+        <span class="avatar" style="background:#22c55e">+</span>
+      </div>
+      <span class="proof-stars"><svg class="icon"><use href="#i-star"></use></svg><svg class="icon"><use href="#i-star"></use></svg><svg class="icon"><use href="#i-star"></use></svg><svg class="icon"><use href="#i-star"></use></svg><svg class="icon"><use href="#i-star"></use></svg></span>
+      <span class="proof-text">4.9 from 12,000+ builders</span>
+    </div>
+    <div class="browser">
+      <div class="browser-bar">
+        <span class="browser-dots"><i></i><i></i><i></i></span>
+        <span class="browser-url"><svg class="icon" style="width:12px;height:12px"><use href="#i-lock"></use></svg> nimbus.app/acmestudio</span>
+      </div>
+      <div class="mock-builder">
+        <div class="mock-left">
+          <div class="m-item"><i></i><span></span></div>
+          <div class="m-item"><i class="alt"></i><span></span></div>
+          <div class="m-item sel"><i></i><span></span></div>
+          <div class="m-item"><i class="alt"></i><span></span></div>
+          <div class="m-item"><i></i><span></span></div>
+        </div>
+        <div class="mock-center">
+          <div class="mock-page">
+            <div class="m-nav"><i></i><span></span><span></span><span class="m-pill"></span></div>
+            <div class="m-mid">
+              <div class="m-txt">
+                <span class="big fill"></span>
+                <span class="big"></span>
+                <span></span>
+                <div class="m-btns"><i></i><i></i></div>
+              </div>
+              <div class="m-visual"><i></i></div>
+            </div>
+            <div class="m-cards"><i></i><i></i><i></i></div>
+          </div>
+        </div>
+        <div class="mock-right">
+          <div class="m-label"></div>
+          <div class="m-input"></div>
+          <div class="m-input"></div>
+          <div class="m-row"><div class="m-input deep"></div><div class="m-input"></div></div>
+          <div class="m-label"></div>
+          <div class="m-input"></div>
+          <div class="m-label"></div>
+          <div class="m-input"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-floor"></div>
+</section>
+
+<section class="logos-strip">
+  <div class="container">
+    <p>Trusted by fast-moving teams at</p>
+    <div class="logos-row">
+      <span class="logo-name"><svg class="icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.5"/></svg> Aperture</span>
+      <span class="logo-name"><svg class="icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l9 18H3z"/><path d="M12 3l-3.5 18M12 3l3.5 18" opacity=".5"/></svg> Vertex</span>
+      <span class="logo-name"><svg class="icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M9 4v16" opacity=".5"/></svg> Northbeam</span>
+      <span class="logo-name"><svg class="icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20V8l8-5 8 5v12"/><path d="M9 20v-6h6v6" opacity=".5"/></svg> Quantumbase</span>
+      <span class="logo-name"><svg class="icon" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4l1.2 6.8L20 12l-6.8 1.2L12 20l-1.2-6.8L4 12l6.8-1.2z"/></svg> Driftline</span>
+      <span class="logo-name"><svg class="icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5v17M3.5 12h17"/></svg> Helios</span>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="features">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-eyebrow">Everything you need</span>
+      <h2 class="section-title">A complete visual workspace</h2>
+      <p class="section-sub">From first drag to final deploy, Nimbus covers the entire workflow of building modern web applications.</p>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-card reveal">
+        <div class="feature-icon"><svg class="icon"><use href="#i-layers"></use></svg></div>
+        <h3>Drag-and-drop builder</h3>
+        <p>Compose pages from a rich component library with instant visual feedback and a pixel-perfect canvas.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon"><svg class="icon"><use href="#i-monitor"></use></svg></div>
+        <h3>Responsive by design</h3>
+        <p>Switch between desktop, tablet, and mobile views as you build and watch every layout adapt automatically.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon"><svg class="icon"><use href="#i-zap"></use></svg></div>
+        <h3>One-click publishing</h3>
+        <p>Ship to a global edge network with custom domains, SSL, and instant rollback — right from the toolbar.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon"><svg class="icon"><use href="#i-grid"></use></svg></div>
+        <h3>Professional templates</h3>
+        <p>Start from dozens of production-tested templates for landing pages, dashboards, forms, and stores.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon"><svg class="icon"><use href="#i-users"></use></svg></div>
+        <h3>Built for teams</h3>
+        <p>Invite collaborators, comment on elements, and keep everyone in sync with real-time multiplayer editing.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon"><svg class="icon"><use href="#i-shield"></use></svg></div>
+        <h3>Secure and scalable</h3>
+        <p>Role-based access, audit logs, and fine-grained publish permissions keep your projects safe at any size.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="how" style="background:var(--bg-subtle);border-block:1px solid var(--border)">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-eyebrow">How it works</span>
+      <h2 class="section-title">From idea to live app in three steps</h2>
+    </div>
+    <div class="steps">
+      <div class="step reveal">
+        <div class="step-num">1</div>
+        <h3>Start with a canvas</h3>
+        <p>Create a project or apply a template, then drag components onto your page and reshape them freely.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">2</div>
+        <h3>Style and connect</h3>
+        <p>Tune every detail in the properties panel and wire up forms, data, and logic without leaving the builder.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">3</div>
+        <h3>Preview and publish</h3>
+        <p>Preview on any screen size, then publish with a click. Your app is live on a global edge network.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head left reveal" style="max-width:520px">
+      <span class="section-eyebrow">Templates</span>
+      <h2 class="section-title">Start from a beautiful foundation</h2>
+    </div>
+    <div class="tpl-strip-grid">
+      <a class="tpl-strip-card reveal" href="templates.html">
+        <div class="preview"><div class="tpl-art" style="--c1:#6366f1;--c2:#8b5cf6" data-layout="hero">
+          <div class="t-nav"><i></i><span></span><span></span><span class="t-btn-nav"></span></div>
+          <div class="t-card"><div class="t-lines"><i></i><i></i><i></i></div></div>
+        </div><div class="overlay"><span class="btn btn-white btn-sm">Browse templates</span></div></div>
+        <div class="meta"><h3>SaaS landing page</h3><p>Marketing · 14 components</p></div>
+      </a>
+      <a class="tpl-strip-card reveal" href="templates.html">
+        <div class="preview"><div class="tpl-art" style="--c1:#0ea5e9;--c2:#06b6d4" data-layout="split">
+          <div class="t-nav"><i></i><span></span><span></span><span class="t-btn-nav"></span></div>
+          <div class="t-card"><div class="t-lines"><i></i><i></i></div><div class="t-btn2"></div></div>
+        </div><div class="overlay"><span class="btn btn-white btn-sm">Browse templates</span></div></div>
+        <div class="meta"><h3>Admin dashboard</h3><p>Dashboard · 22 components</p></div>
+      </a>
+      <a class="tpl-strip-card reveal" href="templates.html">
+        <div class="preview"><div class="tpl-art" style="--c1:#f43f5e;--c2:#d946ef" data-layout="grid">
+          <div class="t-nav"><i></i><span></span><span></span><span class="t-btn-nav"></span></div>
+          <div class="t-card"><div class="t-lines"><i></i></div><div class="t-rows"><i></i><i></i><i></i></div></div>
+        </div><div class="overlay"><span class="btn btn-white btn-sm">Browse templates</span></div></div>
+        <div class="meta"><h3>Portfolio showcase</h3><p>Portfolio · 11 components</p></div>
+      </a>
+      <a class="tpl-strip-card reveal" href="templates.html">
+        <div class="preview"><div class="tpl-art" style="--c1:#10b981;--c2:#0d9488" data-layout="form">
+          <div class="t-nav"><i></i><span></span><span></span><span class="t-btn-nav"></span></div>
+          <div class="t-card"><div class="t-lines"><i></i><i></i><i></i></div><div class="t-rows"><i></i><i></i></div></div>
+        </div><div class="overlay"><span class="btn btn-white btn-sm">Browse templates</span></div></div>
+        <div class="meta"><h3>Waitlist & forms</h3><p>Forms · 9 components</p></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="testimonials" style="background:var(--bg-subtle);border-block:1px solid var(--border)">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-eyebrow">Loved by builders</span>
+      <h2 class="section-title">Teams ship faster with Nimbus</h2>
+    </div>
+    <div class="testimonial-grid">
+      <div class="testimonial-card reveal">
+        <p class="testimonial-quote">"We replaced four internal tools with apps built in Nimbus. What used to take our team a quarter now ships in a week."</p>
+        <div class="testimonial-who">
+          <span class="avatar avatar-ring" style="background:#6366f1">MK</span>
+          <div><div class="n">Maya Krishnan</div><div class="r">VP Product · Northbeam</div></div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal">
+        <p class="testimonial-quote">"The responsive preview is incredible. I designed one layout and it just works on every device. Our customers noticed immediately."</p>
+        <div class="testimonial-who">
+          <span class="avatar avatar-ring" style="background:#0ea5e9">DT</span>
+          <div><div class="n">Daniel Torres</div><div class="r">Founder · Driftline</div></div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal">
+        <p class="testimonial-quote">"Finally a no-code tool that doesn't feel like a toy. Real components, real publishing, real collaboration. It just feels professional."</p>
+        <div class="testimonial-who">
+          <span class="avatar avatar-ring" style="background:#f59e0b">SF</span>
+          <div><div class="n">Sofia Ferraz</div><div class="r">Head of Ops · Quantumbase</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="pricing">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-eyebrow">Pricing</span>
+      <h2 class="section-title">Simple plans that scale with you</h2>
+      <p class="section-sub">Start free. Upgrade when you're ready to publish your first app.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="price-card reveal">
+        <div class="price-name">Free</div>
+        <div class="price-desc">For exploring and personal projects.</div>
+        <div class="price-amt">$0</div>
+        <div class="price-per">forever</div>
+        <ul class="price-feats">
+          <li><svg class="icon"><use href="#i-check"></use></svg> Unlimited draft apps</li>
+          <li><svg class="icon"><use href="#i-check"></use></svg> 150+ components & icons</li>
+          <li><svg class="icon"><use href="#i-check"></use></svg> Desktop & tablet previews</li>
+          <li><svg class="icon"><use href="#i-check"></use></svg> 1 published app</li>
+        </ul>
+        <a class="btn btn-secondary btn-block" href="dashboard.html">Start for free</a>
+      </div>
+      <div class="price-card popular reveal">
+        <span class="price-pop">Most popular</span>
+        <div class="price-name">Pro</div>
+        <div class="price-desc">For builders shipping real products.</div>
+        <div class="price-amt">$24<small>/mo</small></div>
+        <div class="price-per">billed monthly or yearly</div>
+        <ul class="price-feats">
+          <li><svg class="icon"><use href="#i-check"></use></svg> Everything in Free</li>
+          <li><svg class="icon"><use href="#i-check"></use></svg> Custom domains & SSL</li>
+          <li><svg class="icon"><use href="#i-check"></use></svg> Mobile preview & breakpoints</li>
+          <li><svg class="icon"><use href="#i-check"></use></svg> Forms, data & logic</li>
+          <li><svg class="icon"><use href="#i-check"></use></svg> 10 published apps</li>
+        </ul>
+        <a class="btn btn-primary btn-block" href="dashboard.html">Choose Pro</a>
+      </div>
+      <div class="price-card reveal">
+        <div class="price-name">Business</div>
+        <div class="price-desc">For teams that need control.</div>
+        <div class="price-amt">$79<small>/mo</small></div>
+        <div class="price-per">per user, billed yearly</div>
+        <ul class="price-feats">
+          <li><svg class="icon"><use href="#i-check"></use></svg> Everything in Pro</li>
+          <li><svg class="icon"><use href="#i-check"></use></svg> Team workspaces & roles</li>
+          <li><svg class="icon"><use href="#i-check"></use></svg> Real-time collaboration</li>
+          <li><svg class="icon"><use href="#i-check"></use></svg> Audit logs & SSO</li>
+          <li><svg class="icon"><use href="#i-check"></use></svg> Unlimited published apps</li>
+        </ul>
+        <a class="btn btn-secondary btn-block" href="dashboard.html">Choose Business</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="faq" style="background:var(--bg-subtle);border-block:1px solid var(--border)">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-eyebrow">FAQ</span>
+      <h2 class="section-title">Questions, answered</h2>
+    </div>
+    <div class="faq-wrap reveal">
+      <div class="faq-item"><details>
+        <summary>Do I need to know how to code? <svg class="icon faq-chev"><use href="#i-chevron-down"></use></svg></summary>
+        <div class="faq-body">Nope. Nimbus is built for non-developers. Everything you do in the visual builder — styling, layout, forms, publishing — requires zero code. Developers can still export clean HTML/CSS if they want to take over.</div>
+      </details></div>
+      <div class="faq-item"><details>
+        <summary>Can I connect my own domain? <svg class="icon faq-chev"><use href="#i-chevron-down"></use></svg></summary>
+        <div class="faq-body">Yes. On Pro and Business plans you can attach custom domains with automatic SSL certificates, redirects, and region routing through our global edge network.</div>
+      </details></div>
+      <div class="faq-item"><details>
+        <summary>What can I build with Nimbus? <svg class="icon faq-chev"><use href="#i-chevron-down"></use></svg></summary>
+        <div class="faq-body">Marketing sites, landing pages, internal dashboards, client portals, waitlists, admin panels, portfolio sites, and much more. If it renders in a browser, you can build it here.</div>
+      </details></div>
+      <div class="faq-item"><details>
+        <summary>Can my team work together? <svg class="icon faq-chev"><use href="#i-chevron-down"></use></svg></summary>
+        <div class="faq-body">Absolutely. Business workspaces include shared libraries, role-based permissions, real-time multi-user editing, and a full audit trail of every change.</div>
+      </details></div>
+      <div class="faq-item"><details>
+        <summary>What happens when I publish? <svg class="icon faq-chev"><use href="#i-chevron-down"></use></svg></summary>
+        <div class="faq-body">Your app is built into a production bundle, optimized, and deployed to our global edge in under a minute. You get a nimbus.app subdomain instantly, plus optional custom domains.</div>
+      </details></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="cta-band reveal">
+      <h2>Start building today, free</h2>
+      <p>Join 12,000+ builders who launch fast with Nimbus. No credit card required.</p>
+      <div class="cta-actions">
+        <a class="btn btn-white btn-lg" href="dashboard.html">Create your first app</a>
+        <a class="btn btn-lg" style="background:rgba(255,255,255,0.12);color:#fff;border:1px solid rgba(255,255,255,0.35)" href="templates.html">Browse templates</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="logo" href="index.html">
+          <svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true">
+            <rect width="32" height="32" rx="8" fill="url(#ng)"/>
+            <rect x="8" y="15" width="4" height="9" rx="1.5" fill="#fff"/>
+            <rect x="14" y="9" width="4" height="15" rx="1.5" fill="#fff" opacity=".8"/>
+            <rect x="20" y="12" width="4" height="12" rx="1.5" fill="#fff"/>
+          </svg>
+          Nimbus
+        </a>
+        <p>The no-code builder for serious products. Design, publish, and scale web apps without writing a line of code.</p>
+        <div class="social-row" style="margin-top:16px">
+          <a href="#0" aria-label="GitHub"><svg class="icon"><use href="#i-github"></use></svg></a>
+          <a href="#0" aria-label="Twitter"><svg class="icon"><use href="#i-twitter"></use></svg></a>
+          <a href="#0" aria-label="LinkedIn"><svg class="icon"><use href="#i-linkedin"></use></svg></a>
+          <a href="#0" aria-label="YouTube"><svg class="icon"><use href="#i-youtube"></use></svg></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <a href="#features">Features</a>
+        <a href="templates.html">Templates</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#0">Changelog</a>
+        <a href="#0">Roadmap</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="#0">About</a>
+        <a href="#0">Blog</a>
+        <a href="#0">Careers</a>
+        <a href="#0">Contact</a>
+        <a href="#0">Press kit</a>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <a href="#0">Documentation</a>
+        <a href="#0">Help center</a>
+        <a href="#0">Community</a>
+        <a href="#0">System status</a>
+        <a href="#0">Support</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span data-year></span> Nimbus Labs, Inc. All rights reserved.</span>
+      <span style="display:flex;gap:20px;align-items:center">
+        <a href="#0" style="color:inherit">Privacy</a>
+        <a href="#0" style="color:inherit">Terms</a>
+        <a href="#0" style="color:inherit">Security</a>
+      </span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/app.js"></script>
+</body>
+</html>
