@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel · Nimbus</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/admin.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='32' y2='32' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%236366f1'/%3E%3Cstop offset='1' stop-color='%23d946ef'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3Crect x='8' y='15' width='4' height='9' rx='1.5' fill='%23fff'/%3E%3Crect x='14' y='9' width='4' height='15' rx='1.5' fill='%23fff' opacity='.8'/%3E%3Crect x='20' y='12' width='4' height='12' rx='1.5' fill='%23fff'/%3E%3C/svg%3E">
+</head>
+<body>
+
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="i-grid" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="7" height="8.5" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="5" rx="1.5"/><rect x="13.5" y="11" width="7" height="9.5" rx="1.5"/><rect x="3.5" y="14.5" width="7" height="6" rx="1.5"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0113 0"/><path d="M16 5.2a3.5 3.5 0 010 5.8M18 20a6.5 6.5 0 00-3-5.4"/></symbol>
+  <symbol id="i-folder" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 012-2h4l2 3h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></symbol>
+  <symbol id="i-templates" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3.5" width="8" height="6" rx="1.2"/><rect x="13" y="3.5" width="8" height="6" rx="1.2"/><rect x="3" y="12" width="8" height="8.5" rx="1.2"/><rect x="13" y="12" width="8" height="8.5" rx="1.2"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4"/><path d="M5 4h12l-2 4 2 4H5"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></symbol>
+  <symbol id="i-settings" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 13a7.4 7.4 0 000-2l2.1-1.6-2-3.5-2.5 1a7.4 7.4 0 00-1.7-1l-.4-2.7h-4l-.4 2.7a7.4 7.4 0 00-1.7 1l-2.5-1-2 3.5L6.6 11a7.4 7.4 0 000 2l-2.1 1.6 2 3.5 2.5-1a7.4 7.4 0 001.7 1l.4 2.7h4l.4-2.7a7.4 7.4 0 001.7-1l2.5 1 2-3.5z"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6.5h16M4 12h16M4 17.5h16"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20.5 20.5L16 16"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 00-12 0c0 7-3 9-3 9h18s-3-2-3-9z"/><path d="M10.5 20.5a2 2 0 003 0"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.8l5 5 10-11"/></symbol>
+  <symbol id="i-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></symbol>
+  <symbol id="i-chevron-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-activity" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3-8 4 16 3-8h4"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M9 7V5a1 1 0 011-1h4a1 1 0 011 1v2M6 7l1 13a2 2 0 002 2h6a2 2 0 002-2l1-13"/></symbol>
+  <symbol id="i-dot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-pause" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></symbol>
+  <symbol id="i-power" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v9"/><path d="M6.6 6.5a8 8 0 1010.8 0"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.7 5.6 6.3.9-4.5 4.4 1 6.1L12 17.8 6.5 20l1-6.1L3 9.5l6.3-.9z"/></symbol>
+  <symbol id="i-save" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h11l5 5v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4a1 1 0 011-1z"/><path d="M8 3v5h8M8 21v-7h8v7"/></symbol>
+  <symbol id="i-rocket" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1 1-.9 3.4-.9 3.4s2.4.1 3.4-.9"/><path d="M5 15.5c2.8-8 9.5-11.5 14.5-11.5 0 5-3.5 11.7-11.5 14.5z"/><circle cx="14.5" cy="9.5" r="1.6"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14.5 14.5 0 010 18M12 3a14.5 14.5 0 000 18"/></symbol>
+  <symbol id="i-logout" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H6a2 2 0 01-2-2V5a2 2 0 012-2h3M16 17l5-5-5-5M21 12H9"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5L2.2 20h19.6z"/><path d="M12 9.5v4.5M12 17.5h.01"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7h.01"/></symbol>
+  <symbol id="i-box" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8.5 4.6v8.8L12 21l-8.5-4.6V7.6z"/><path d="M3.5 7.7L12 12.5l8.5-4.8M12 12.5v8.3"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5L20 6v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z"/><path d="M9 12l2.2 2.2L15.5 9.5"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6l1 4-3 3v7l-2 2-2-2v-7L8 7z"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16M7 20v-7M12 20V8M17 20v-10"/></symbol>
+  <symbol id="i-filter" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18l-7 8v6l-4-2v-4z"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5L21 3l-7 18-3.5-7.5z"/><path d="M10.5 13.5L21 3"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 00-2 2v14a2 2 0 002 2h12a2 2 0 002-2V9z"/><path d="M14 3v6h6"/></symbol>
+  <symbol id="i-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-arrow-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></symbol>
+  <symbol id="i-user-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0113 0"/><path d="M19 8v6M22 11h-6"/></symbol>
+</svg>
+
+<div class="admin-layout">
+
+  <aside class="admin-sidebar" id="adminSidebar">
+    <button class="sidebar-collapse-btn" id="sidebarCollapseBtn" aria-label="Collapse sidebar">
+      <svg class="icon collapse-icon" style="width:14px;height:14px" aria-hidden="true"><use href="#i-chevron-right"></use></svg>
+    </button>
+    <div class="sidebar-top">
+      <a class="admin-logo" href="index.html">
+        <span class="logo-badge">A</span>
+        <span>Nimbus Admin</span>
+      </a>
+      <button class="workspace-switch">
+        <span class="ws-avatar">A</span>
+        <span class="ws-meta"><span class="ws-name">Acme Studio</span><span class="ws-plan">Platform Admin</span></span>
+        <svg class="icon ws-chevron" aria-hidden="true"><use href="#i-chevron"></use></svg>
+      </button>
+    </div>
+
+    <nav class="admin-sidebar-nav" id="adminNav">
+      <div class="nav-group-label">General</div>
+      <button class="nav-item active" data-section="overview"><svg class="icon"><use href="#i-grid"></use></svg> <span>Overview</span></button>
+      <button class="nav-item" data-section="users"><svg class="icon"><use href="#i-users"></use></svg> <span>Users</span> <span class="nav-badge" data-users-count>1.2k</span></button>
+      <button class="nav-item" data-section="projects"><svg class="icon"><use href="#i-folder"></use></svg> <span>Projects</span> <span class="nav-badge muted" data-projects-count>8.4k</span></button>
+      <button class="nav-item" data-section="templates"><svg class="icon"><use href="#i-templates"></use></svg> <span>Templates</span> <span class="nav-badge muted">24</span></button>
+      <div class="nav-group-label">Moderation</div>
+      <button class="nav-item" data-section="reports"><svg class="icon"><use href="#i-flag"></use></svg> <span>Reports</span> <span class="nav-badge" id="reportsBadge">3</span></button>
+      <button class="nav-item" data-section="activity"><svg class="icon"><use href="#i-activity"></use></svg> <span>System Activity</span></button>
+      <div class="nav-group-label">General</div>
+      <button class="nav-item" data-section="settings"><svg class="icon"><use href="#i-settings"></use></svg> <span>Settings</span></button>
+    </nav>
+
+    <div class="sidebar-bottom">
+      <a class="nav-item" style="padding:9px 10px" href="dashboard.html"><svg class="icon"><use href="#i-arrow-left"></use></svg> <span>Back to Main Dashboard</span></a>
+      <div class="admin-profile">
+        <span class="admin-profile-avatar">AD</span>
+        <span class="admin-profile-info"><span class="n">Alex Doe</span><span class="e">admin@nimbus.app</span></span>
+        <button class="icon-btn" style="width:32px;height:32px" aria-label="Log out" id="adminLogout"><svg class="icon" style="width:16px;height:16px"><use href="#i-logout"></use></svg></button>
+      </div>
+    </div>
+  </aside>
+
+  <div class="sidebar-backdrop" id="adminBackdrop"></div>
+
+  <div class="admin-main">
+
+    <header class="admin-topbar">
+      <button class="sidebar-toggle" id="adminSidebarToggle" aria-label="Open menu"><svg class="icon"><use href="#i-menu"></use></svg></button>
+      <div class="search-box">
+        <svg class="icon" aria-hidden="true"><use href="#i-search"></use></svg>
+        <input type="search" id="adminGlobalSearch" placeholder="Search users, projects, reports…">
+      </div>
+      <div class="admin-topbar-actions">
+        <button class="icon-btn" id="adminBell" aria-label="Notifications"><svg class="icon"><use href="#i-bell"></use></svg><span class="dot"></span></button>
+        <span class="badge badge-primary"><span class="badge-dot"></span> Live</span>
+        <span class="avatar avatar-ring" style="background:var(--danger)">AD</span>
+      </div>
+    </header>
+
+    <main class="admin-content">
+
+      <!-- ==================== OVERVIEW ==================== -->
+      <section class="admin-section active" id="section-overview">
+
+        <div class="admin-page-header">
+          <div>
+            <h1 class="admin-page-title">Platform Overview</h1>
+            <p class="admin-page-sub">A high-level snapshot of everything happening across Nimbus.</p>
+          </div>
+          <div class="admin-page-actions">
+            <button class="btn btn-secondary btn-sm" id="refreshBtn"><svg class="icon"><use href="#i-clock"></use></svg> Refresh data</button>
+            <a class="btn btn-primary btn-sm" href="dashboard.html"><svg class="icon"><use href="#i-grid"></use></svg> Open Main Dashboard</a>
+          </div>
+        </div>
+
+        <div class="admin-stats-grid">
+          <div class="admin-stat-card">
+            <div class="admin-stat-icon indigo"><svg class="icon"><use href="#i-users"></use></svg></div>
+            <div>
+              <div class="admin-stat-value">1,248<small class="up"><svg class="icon" style="width:12px;height:12px"><use href="#i-arrow-right"></use></svg>+8.2%</small></div>
+              <div class="admin-stat-label">Total Users</div>
+            </div>
+          </div>
+          <div class="admin-stat-card">
+            <div class="admin-stat-icon green"><svg class="icon"><use href="#i-check"></use></svg></div>
+            <div>
+              <div class="admin-stat-value">834<small class="up"><svg class="icon" style="width:12px;height:12px"><use href="#i-arrow-right"></use></svg>+12.4%</small></div>
+              <div class="admin-stat-label">Active Users</div>
+            </div>
+          </div>
+          <div class="admin-stat-card">
+            <div class="admin-stat-icon amber"><svg class="icon"><use href="#i-folder"></use></svg></div>
+            <div>
+              <div class="admin-stat-value">8,412<small class="up"><svg class="icon" style="width:12px;height:12px"><use href="#i-arrow-right"></use></svg>+5.1%</small></div>
+              <div class="admin-stat-label">Total Projects</div>
+            </div>
+          </div>
+          <div class="admin-stat-card">
+            <div class="admin-stat-icon blue"><svg class="icon"><use href="#i-rocket"></use></svg></div>
+            <div>
+              <div class="admin-stat-value">3,906<small class="up"><svg class="icon" style="width:12px;height:12px"><use href="#i-arrow-right"></use></svg>+7.8%</small></div>
+              <div class="admin-stat-label">Published Projects</div>
+            </div>
+          </div>
+          <div class="admin-stat-card">
+            <div class="admin-stat-icon red"><svg class="icon"><use href="#i-templates"></use></svg></div>
+            <div>
+              <div class="admin-stat-value">24</div>
+              <div class="admin-stat-label">Total Templates</div>
+            </div>
+          </div>
+          <div class="admin-stat-card">
+            <div class="admin-stat-icon green"><svg class="icon"><use href="#i-user-plus"></use></svg></div>
+            <div>
+              <div class="admin-stat-value">98<small class="up"><svg class="icon" style="width:12px;height:12px"><use href="#i-arrow-right"></use></svg>+3.6%</small></div>
+              <div class="admin-stat-label">New Users This Month</div>
+            </div>
+          </div>
+          <div class="admin-stat-card">
+            <div class="admin-stat-icon amber"><svg class="icon"><use href="#i-chart"></use></svg></div>
+            <div>
+              <div class="admin-stat-value">61.2%<small class="up"><svg class="icon" style="width:12px;height:12px"><use href="#i-arrow-right"></use></svg>+2.1%</small></div>
+              <div class="admin-stat-label">Month-over-Month Growth</div>
+            </div>
+          </div>
+          <div class="admin-stat-card">
+            <div class="admin-stat-icon blue"><svg class="icon"><use href="#i-globe"></use></svg></div>
+            <div>
+              <div class="admin-stat-value">99.98%</div>
+              <div class="admin-stat-label">Platform Uptime</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="admin-overview-grid">
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <h3><svg class="icon" style="width:16px;height:16px;vertical-align:-2px;margin-right:6px"><use href="#i-chart"></use></svg> User Growth <span class="hint" style="font-weight:500">· Last 12 months</span></h3>
+              <span class="badge badge-success"><span class="badge-dot"></span> Up 12.4%</span>
+            </div>
+            <div class="admin-card-body">
+              <div class="admin-chart" id="userGrowthChart">
+                <div class="chart-col"><div class="chart-val">640</div><div class="chart-bar green" style="height:38%"></div><span class="chart-label">Jan</span></div>
+                <div class="chart-col"><div class="chart-val">700</div><div class="chart-bar green" style="height:42%"></div><span class="chart-label">Feb</span></div>
+                <div class="chart-col"><div class="chart-val">760</div><div class="chart-bar green" style="height:45%"></div><span class="chart-label">Mar</span></div>
+                <div class="chart-col"><div class="chart-val">810</div><div class="chart-bar green" style="height:48%"></div><span class="chart-label">Apr</span></div>
+                <div class="chart-col"><div class="chart-val">860</div><div class="chart-bar green" style="height:51%"></div><span class="chart-label">May</span></div>
+                <div class="chart-col"><div class="chart-val">920</div><div class="chart-bar green" style="height:55%"></div><span class="chart-label">Jun</span></div>
+                <div class="chart-col"><div class="chart-val">980</div><div class="chart-bar green" style="height:58%"></div><span class="chart-label">Jul</span></div>
+                <div class="chart-col"><div class="chart-val">1030</div><div class="chart-bar green" style="height:62%"></div><span class="chart-label">Aug</span></div>
+                <div class="chart-col"><div class="chart-val">1090</div><div class="chart-bar green" style="height:65%"></div><span class="chart-label">Sep</span></div>
+                <div class="chart-col"><div class="chart-val">1150</div><div class="chart-bar green" style="height:69%"></div><span class="chart-label">Oct</span></div>
+                <div class="chart-col"><div class="chart-val">1200</div><div class="chart-bar green" style="height:72%"></div><span class="chart-label">Nov</span></div>
+                <div class="chart-col"><div class="chart-val">1248</div><div class="chart-bar green" style="height:76%"></div><span class="chart-label">Dec</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <h3>Recent Activity</h3>
+              <a class="section-block-link" href="#0" data-goto-section="activity" style="font-size:13px;color:var(--text-2)">View all <svg class="icon" style="width:13px;height:13px"><use href="#i-arrow-right"></use></svg></a>
+            </div>
+            <div class="admin-card-body no-pad">
+              <div class="activity-list" id="overviewActivity">
+                <div class="activity-item">
+                  <span class="activity-avatar" style="background:var(--primary)">JS</span>
+                  <div class="activity-body">
+                    <div class="activity-text"><strong>Jasmine Singh</strong> published <strong>Lumen Analytics</strong></div>
+                    <div class="activity-time">12 minutes ago</div>
+                  </div>
+                  <span class="activity-dot" style="background:var(--success)"></span>
+                </div>
+                <div class="activity-item">
+                  <span class="activity-avatar" style="background:#0ea5e9">MK</span>
+                  <div class="activity-body">
+                    <div class="activity-text"><strong>Marcus Kim</strong> created project <strong>FitTrack Mobile</strong></div>
+                    <div class="activity-time">34 minutes ago</div>
+                  </div>
+                  <span class="activity-dot" style="background:var(--info)"></span>
+                </div>
+                <div class="activity-item">
+                  <span class="activity-avatar" style="background:#10b981">SO</span>
+                  <div class="activity-body">
+                    <div class="activity-text"><strong>Sophie Owens</strong> was promoted to <strong>Admin</strong></div>
+                    <div class="activity-time">1 hour ago</div>
+                  </div>
+                  <span class="activity-dot" style="background:var(--warning)"></span>
+                </div>
+                <div class="activity-item">
+                  <span class="activity-avatar" style="background:var(--danger)">AD</span>
+                  <div class="activity-body">
+                    <div class="activity-text"><strong>Alex Doe</strong> suspended user <strong>@rogue_designs</strong></div>
+                    <div class="activity-time">2 hours ago</div>
+                  </div>
+                  <span class="activity-dot" style="background:var(--danger)"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="admin-overview-row">
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <h3><svg class="icon" style="width:16px;height:16px;vertical-align:-2px;margin-right:6px"><use href="#i-folder"></use></svg> Project Creation <span class="hint" style="font-weight:500">· Last 12 months</span></h3>
+              <span class="badge badge-primary"><span class="badge-dot"></span> 8.4k total</span>
+            </div>
+            <div class="admin-card-body">
+              <div class="admin-chart" id="projectChart">
+                <div class="chart-col"><div class="chart-val">310</div><div class="chart-bar indigo chart-bar-b" style="height:42%"></div><span class="chart-label">Jan</span></div>
+                <div class="chart-col"><div class="chart-val">380</div><div class="chart-bar indigo chart-bar-b" style="height:50%"></div><span class="chart-label">Feb</span></div>
+                <div class="chart-col"><div class="chart-val">340</div><div class="chart-bar indigo chart-bar-b" style="height:46%"></div><span class="chart-label">Mar</span></div>
+                <div class="chart-col"><div class="chart-val">410</div><div class="chart-bar indigo chart-bar-b" style="height:56%"></div><span class="chart-label">Apr</span></div>
+                <div class="chart-col"><div class="chart-val">445</div><div class="chart-bar indigo chart-bar-b" style="height:62%"></div><span class="chart-label">May</span></div>
+                <div class="chart-col"><div class="chart-val">400</div><div class="chart-bar indigo chart-bar-b" style="height:56%"></div><span class="chart-label">Jun</span></div>
+                <div class="chart-col"><div class="chart-val">470</div><div class="chart-bar indigo chart-bar-b" style="height:66%"></div><span class="chart-label">Jul</span></div>
+                <div class="chart-col"><div class="chart-val">520</div><div class="chart-bar indigo chart-bar-b" style="height:74%"></div><span class="chart-label">Aug</span></div>
+                <div class="chart-col"><div class="chart-val">565</div><div class="chart-bar indigo chart-bar-b" style="height:80%"></div><span class="chart-label">Sep</span></div>
+                <div class="chart-col"><div class="chart-val">610</div><div class="chart-bar indigo chart-bar-b" style="height:87%"></div><span class="chart-label">Oct</span></div>
+                <div class="chart-col"><div class="chart-val">655</div><div class="chart-bar indigo chart-bar-b" style="height:93%"></div><span class="chart-label">Nov</span></div>
+                <div class="chart-col"><div class="chart-val">700</div><div class="chart-bar indigo chart-bar-b" style="height:100%"></div><span class="chart-label">Dec</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <h3>Popular Templates</h3>
+              <span class="badge badge-secondary">This month</span>
+            </div>
+            <div class="admin-card-body">
+              <div class="popular-tpl-item">
+                <span class="popular-tpl-rank">1</span>
+                <div class="popular-tpl-info">
+                  <div class="n">SaaS landing page</div>
+                  <div class="c">Marketing · Landing page</div>
+                </div>
+                <span class="popular-tpl-count">1,204 uses</span>
+              </div>
+              <div class="popular-tpl-item">
+                <span class="popular-tpl-rank">2</span>
+                <div class="popular-tpl-info">
+                  <div class="n">Admin dashboard</div>
+                  <div class="c">Internal · Dashboard</div>
+                </div>
+                <span class="popular-tpl-count">872 uses</span>
+              </div>
+              <div class="popular-tpl-item">
+                <span class="popular-tpl-rank">3</span>
+                <div class="popular-tpl-info">
+                  <div class="n">Customer portal</div>
+                  <div class="c">Accounts · Portal</div>
+                </div>
+                <span class="popular-tpl-count">641 uses</span>
+              </div>
+              <div class="popular-tpl-item">
+                <span class="popular-tpl-rank">4</span>
+                <div class="popular-tpl-info">
+                  <div class="n">Waitlist & forms</div>
+                  <div class="c">Conversion · Forms</div>
+                </div>
+                <span class="popular-tpl-count">519 uses</span>
+              </div>
+              <div class="popular-tpl-item">
+                <span class="popular-tpl-rank">5</span>
+                <div class="popular-tpl-info">
+                  <div class="n">E-commerce storefront</div>
+                  <div class="c">Store · E-com</div>
+                </div>
+                <span class="popular-tpl-count">418 uses</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="admin-overview-grid">
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <h3><svg class="icon" style="width:16px;height:16px;vertical-align:-2px;margin-right:6px"><use href="#i-shield"></use></svg> System Status</h3>
+              <span class="badge badge-success"><span class="badge-dot"></span> All systems operational</span>
+            </div>
+            <div class="admin-card-body">
+              <div class="status-list">
+                <div class="status-item">
+                  <span class="status-label">API & web services</span>
+                  <span class="status-value good">Operational</span>
+                </div>
+                <div class="status-item">
+                  <span class="status-label">Project publishing</span>
+                  <span class="status-value good">Operational</span>
+                </div>
+                <div class="status-item">
+                  <span class="status-label">User authentication</span>
+                  <span class="status-value good">Operational</span>
+                </div>
+                <div class="status-item">
+                  <span class="status-label">Template library</span>
+                  <span class="status-value warn">Degraded</span>
+                </div>
+                <div class="status-item">
+                  <span class="status-label">Database replicas</span>
+                  <span class="status-value good">Operational</span>
+                </div>
+                <div class="status-item">
+                  <span class="status-label">Email delivery</span>
+                  <span class="status-value good">Operational</span>
+                </div>
+                <div class="status-item">
+                  <span class="status-label">Media storage</span>
+                  <span class="status-value good">Operational</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <h3><svg class="icon" style="width:16px;height:16px;vertical-align:-2px;margin-right:6px"><use href="#i-alert"></use></svg> Pending Moderation</h3>
+              <span class="badge badge-warning">3 reports</span>
+            </div>
+            <div class="admin-card-body no-pad">
+              <div class="activity-list">
+                <div class="activity-item">
+                  <span class="activity-avatar" style="background:var(--danger)">SP</span>
+                  <div class="activity-body">
+                    <div class="activity-text">Report: <strong>SafePay Wireframe</strong></div>
+                    <div class="activity-time">Reported 3h ago · Copyright</div>
+                  </div>
+                  <span class="activity-dot" style="background:var(--danger)"></span>
+                </div>
+                <div class="activity-item">
+                  <span class="activity-avatar" style="background:var(--warning)">TB</span>
+                  <div class="activity-body">
+                    <div class="activity-text">Report: <strong>TrollNet Forum</strong></div>
+                    <div class="activity-time">Reported 6h ago · Abuse</div>
+                  </div>
+                  <span class="activity-dot" style="background:var(--warning)"></span>
+                </div>
+                <div class="activity-item">
+                  <span class="activity-avatar" style="background:var(--info)">RM</span>
+                  <div class="activity-body">
+                    <div class="activity-text">Report: <strong>Ghost Store</strong></div>
+                    <div class="activity-time">Reported 1d ago · Spam</div>
+                  </div>
+                  <span class="activity-dot" style="background:var(--info)"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== USERS ==================== -->
+      <section class="admin-section" id="section-users">
+
+        <div class="admin-page-header">
+          <div>
+            <h1 class="admin-page-title">User Management</h1>
+            <p class="admin-page-sub">Manage accounts, roles, and account status across the platform.</p>
+          </div>
+          <div class="admin-page-actions">
+            <button class="btn btn-primary btn-sm" id="inviteUserBtn"><svg class="icon"><use href="#i-user-plus"></use></svg> Invite user</button>
+          </div>
+        </div>
+
+        <div class="admin-filters">
+          <div class="search-input">
+            <svg class="icon" aria-hidden="true"><use href="#i-search"></use></svg>
+            <input type="search" id="userSearch" placeholder="Search by name, email, or role…">
+          </div>
+          <select id="userRoleFilter">
+            <option value="all">All roles</option>
+            <option value="Admin">Admin</option>
+            <option value="Editor">Editor</option>
+            <option value="Viewer">Viewer</option>
+            <option value="User">User</option>
+          </select>
+          <select id="userStatusFilter">
+            <option value="all">All statuses</option>
+            <option value="active">Active</option>
+            <option value="suspended">Suspended</option>
+          </select>
+          <span class="result-count" id="userResultCount">Showing 8 users</span>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card-body no-pad">
+            <div class="admin-table-wrap">
+              <table class="admin-table" id="usersTable">
+                <thead>
+                  <tr>
+                    <th>User</th>
+                    <th>Role</th>
+                    <th>Projects</th>
+                    <th>Status</th>
+                    <th>Joined</th>
+                    <th>Last active</th>
+                    <th style="width:50px"></th>
+                  </tr>
+                </thead>
+                <tbody id="usersBody">
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== PROJECTS ==================== -->
+      <section class="admin-section" id="section-projects">
+
+        <div class="admin-page-header">
+          <div>
+            <h1 class="admin-page-title">Project Management</h1>
+            <p class="admin-page-sub">Review, disable, or remove projects from the platform.</p>
+          </div>
+        </div>
+
+        <div class="admin-filters">
+          <div class="search-input">
+            <svg class="icon" aria-hidden="true"><use href="#i-search"></use></svg>
+            <input type="search" id="projectSearch" placeholder="Search by project name or owner…">
+          </div>
+          <select id="projectStatusFilter">
+            <option value="all">All statuses</option>
+            <option value="Published">Published</option>
+            <option value="Draft">Draft</option>
+          </select>
+          <select id="projectTypeFilter">
+            <option value="all">All types</option>
+            <option value="Landing page">Landing page</option>
+            <option value="Dashboard">Dashboard</option>
+            <option value="Web application">Web application</option>
+            <option value="Form">Form</option>
+            <option value="Portal">Portal</option>
+            <option value="Store">Store</option>
+          </select>
+          <span class="result-count" id="projectResultCount">Showing 8 projects</span>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card-body no-pad">
+            <div class="admin-table-wrap">
+              <table class="admin-table" id="projectsTable">
+                <thead>
+                  <tr>
+                    <th>Project</th>
+                    <th>Owner</th>
+                    <th>Type</th>
+                    <th>Status</th>
+                    <th>Created</th>
+                    <th>Last modified</th>
+                    <th>Views</th>
+                    <th style="width:50px"></th>
+                  </tr>
+                </thead>
+                <tbody id="projectsBody">
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== TEMPLATES ==================== -->
+      <section class="admin-section" id="section-templates">
+
+        <div class="admin-page-header">
+          <div>
+            <h1 class="admin-page-title">Template Management</h1>
+            <p class="admin-page-sub">Curate the template library seen by every Nimbus user.</p>
+          </div>
+          <div class="admin-page-actions">
+            <button class="btn btn-primary btn-sm" id="addTemplateBtn"><svg class="icon"><use href="#i-plus"></use></svg> Add Template</button>
+          </div>
+        </div>
+
+        <div class="admin-filters">
+          <div class="search-input">
+            <svg class="icon" aria-hidden="true"><use href="#i-search"></use></svg>
+            <input type="search" id="templateSearch" placeholder="Search templates…">
+          </div>
+          <select id="templateCategoryFilter">
+            <option value="all">All categories</option>
+            <option value="Marketing">Marketing</option>
+            <option value="Internal">Internal</option>
+            <option value="Creative">Creative</option>
+            <option value="Conversion">Conversion</option>
+            <option value="Accounts">Accounts</option>
+            <option value="Store">Store</option>
+            <option value="Data">Data</option>
+            <option value="Events">Events</option>
+          </select>
+          <select id="templateStatusFilter">
+            <option value="all">All statuses</option>
+            <option value="enabled">Enabled</option>
+            <option value="disabled">Disabled</option>
+          </select>
+          <span class="result-count" id="templateResultCount">Showing 8 templates</span>
+        </div>
+
+        <div class="admin-tpl-grid" id="adminTemplatesGrid">
+        </div>
+      </section>
+
+      <!-- ==================== REPORTS ==================== -->
+      <section class="admin-section" id="section-reports">
+
+        <div class="admin-page-header">
+          <div>
+            <h1 class="admin-page-title">Reports</h1>
+            <p class="admin-page-sub">Review user-submitted reports and take moderation action.</p>
+          </div>
+        </div>
+
+        <div class="admin-filters">
+          <div class="search-input">
+            <svg class="icon" aria-hidden="true"><use href="#i-search"></use></svg>
+            <input type="search" id="reportSearch" placeholder="Search reports…">
+          </div>
+          <select id="reportStatusFilter">
+            <option value="all">All statuses</option>
+            <option value="Pending">Pending</option>
+            <option value="Reviewed">Reviewed</option>
+            <option value="Dismissed">Dismissed</option>
+          </select>
+          <span class="result-count" id="reportResultCount">Showing 4 reports</span>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card-body no-pad" id="reportsList">
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== SYSTEM ACTIVITY ==================== -->
+      <section class="admin-section" id="section-activity">
+
+        <div class="admin-page-header">
+          <div>
+            <h1 class="admin-page-title">System Activity</h1>
+            <p class="admin-page-sub">A complete audit log of platform events and admin actions.</p>
+          </div>
+          <div class="admin-page-actions">
+            <button class="btn btn-secondary btn-sm" id="clearActivityFilter"><svg class="icon"><use href="#i-filter"></use></svg> Clear filters</button>
+          </div>
+        </div>
+
+        <div class="admin-filters">
+          <div class="search-input">
+            <svg class="icon" aria-hidden="true"><use href="#i-search"></use></svg>
+            <input type="search" id="activitySearch" placeholder="Search activity…">
+          </div>
+          <select id="activityTypeFilter">
+            <option value="all">All event types</option>
+            <option value="User">User</option>
+            <option value="Project">Project</option>
+            <option value="Template">Template</option>
+            <option value="Admin">Admin</option>
+          </select>
+          <span class="result-count" id="activityResultCount">Showing 12 events</span>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card-body no-pad">
+            <div class="admin-table-wrap">
+              <table class="admin-table" id="activityTable">
+                <thead>
+                  <tr>
+                    <th>Event</th>
+                    <th>Actor</th>
+                    <th>Type</th>
+                    <th>Target</th>
+                    <th>Timestamp</th>
+                  </tr>
+                </thead>
+                <tbody id="activityBody">
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== SETTINGS ==================== -->
+      <section class="admin-section" id="section-settings">
+
+        <div class="admin-page-header">
+          <div>
+            <h1 class="admin-page-title">Platform Settings</h1>
+            <p class="admin-page-sub">Configure global platform behavior for all Nimbus users.</p>
+          </div>
+        </div>
+
+        <div class="settings-grid">
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <h3>General</h3>
+            </div>
+            <div class="admin-card-body">
+              <div class="settings-section">
+                <div class="field">
+                  <label class="label" for="settingsPlatformName">Platform name</label>
+                  <input class="input" id="settingsPlatformName" value="Nimbus">
+                  <p class="hint">Shown in emails, billing invoices, and public pages.</p>
+                </div>
+                <div class="setting-row">
+                  <div class="setting-info">
+                    <h4>Registration enabled</h4>
+                    <p>Allow new users to create accounts.</p>
+                  </div>
+                  <div class="setting-control">
+                    <button class="toggle on" role="switch" aria-checked="true" aria-label="Registration enabled" data-toggle-setting="registration"></button>
+                  </div>
+                </div>
+                <div class="setting-row">
+                  <div class="setting-info">
+                    <h4>Maintenance mode</h4>
+                    <p>Temporarily take the platform offline for maintenance. Admins can still access.</p>
+                  </div>
+                  <div class="setting-control">
+                    <button class="toggle" role="switch" aria-checked="false" aria-label="Maintenance mode" data-toggle-setting="maintenance"></button>
+                  </div>
+                </div>
+                <div class="setting-row">
+                  <div class="setting-info">
+                    <h4>Publishing enabled</h4>
+                    <p>Allow users to publish projects to custom domains.</p>
+                  </div>
+                  <div class="setting-control">
+                    <button class="toggle on" role="switch" aria-checked="true" aria-label="Publishing enabled" data-toggle-setting="publishing"></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <h3>User & limits</h3>
+            </div>
+            <div class="admin-card-body">
+              <div class="settings-section">
+                <div class="form-grid-2">
+                  <div class="field">
+                    <label class="label" for="settingsDefaultProjects">Default project limit</label>
+                    <input class="input" type="number" id="settingsDefaultProjects" value="10" min="1">
+                  </div>
+                  <div class="field">
+                    <label class="label" for="settingsDefaultPages">Default pages / project</label>
+                    <input class="input" type="number" id="settingsDefaultPages" value="5" min="1">
+                  </div>
+                </div>
+                <div class="field">
+                  <label class="label" for="settingsDefaultRole">Default user role</label>
+                  <select class="select" id="settingsDefaultRole">
+                    <option selected>User</option>
+                    <option>Editor</option>
+                    <option>Viewer</option>
+                  </select>
+                  <p class="hint">Assigned to newly registered accounts.</p>
+                </div>
+                <div class="field">
+                  <label class="label" for="settingsMaxUpload">Max upload size <span class="hint">(MB)</span></label>
+                  <input class="input" type="number" id="settingsMaxUpload" value="50" min="1">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="admin-card" style="grid-column:1 / -1">
+            <div class="admin-card-header">
+              <h3>Notifications & security</h3>
+            </div>
+            <div class="admin-card-body">
+              <div class="settings-section">
+                <div class="setting-row">
+                  <div class="setting-info">
+                    <h4>Admin activity emails</h4>
+                    <p>Send email digests of admin actions to platform owners.</p>
+                  </div>
+                  <div class="setting-control">
+                    <button class="toggle on" role="switch" aria-checked="true" aria-label="Admin activity emails" data-toggle-setting="adminEmails"></button>
+                  </div>
+                </div>
+                <div class="setting-row">
+                  <div class="setting-info">
+                    <h4>Two-factor required for admins</h4>
+                    <p>Require 2FA on all admin accounts.</p>
+                  </div>
+                  <div class="setting-control">
+                    <button class="toggle on" role="switch" aria-checked="true" aria-label="Two-factor required" data-toggle-setting="twoFactor"></button>
+                  </div>
+                </div>
+                <div class="setting-row">
+                  <div class="setting-info">
+                    <h4>New user approval</h4>
+                    <p>Require manual approval before new accounts can build.</p>
+                  </div>
+                  <div class="setting-control">
+                    <button class="toggle" role="switch" aria-checked="false" aria-label="New user approval" data-toggle-setting="approval"></button>
+                  </div>
+                </div>
+                <div class="field" style="margin-top:10px">
+                  <label class="label" for="settingsSupportEmail">Support contact email</label>
+                  <input class="input" id="settingsSupportEmail" type="email" value="support@nimbus.app">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="page-actions" style="margin-top:24px;justify-content:flex-end">
+          <button class="btn btn-ghost" id="resetSettingsBtn">Reset to defaults</button>
+          <button class="btn btn-primary" id="saveSettingsBtn"><svg class="icon"><use href="#i-save"></use></svg> Save settings</button>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<!-- Add template modal -->
+<div class="modal-overlay" id="addTemplateModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <h2 class="modal-title" id="addTemplateModalTitle">Add Template</h2>
+        <p class="modal-sub">Add a new page builder template to the library.</p>
+      </div>
+      <button class="modal-close" data-modal-close aria-label="Close"><svg class="icon"><use href="#i-x"></use></svg></button>
+    </div>
+    <form id="templateForm">
+      <div class="modal-body">
+        <div class="field">
+          <label class="label" for="tplName">Template name</label>
+          <input class="input" id="tplName" placeholder="e.g. AI Startup Launch" required>
+        </div>
+        <div class="field">
+          <label class="label" for="tplDesc">Description</label>
+          <textarea class="textarea" id="tplDesc" placeholder="What is this template best used for?"></textarea>
+        </div>
+        <div class="form-grid-2">
+          <div class="field">
+            <label class="label" for="tplCategory">Category</label>
+            <select class="select" id="tplCategory">
+              <option>Marketing</option>
+              <option>Internal</option>
+              <option>Creative</option>
+              <option>Conversion</option>
+              <option>Accounts</option>
+              <option>Store</option>
+              <option>Data</option>
+              <option>Events</option>
+            </select>
+          </div>
+          <div class="field">
+            <span class="label">Accent color</span>
+            <div class="color-dots" id="tplAccentDots">
+              <button type="button" class="color-dot active" data-color="#6366f1" style="background:#6366f1"></button>
+              <button type="button" class="color-dot" data-color="#8b5cf6" style="background:#8b5cf6"></button>
+              <button type="button" class="color-dot" data-color="#0d9488" style="background:#0d9488"></button>
+              <button type="button" class="color-dot" data-color="#f97316" style="background:#f97316"></button>
+              <button type="button" class="color-dot" data-color="#0ea5e9" style="background:#0ea5e9"></button>
+              <button type="button" class="color-dot" data-color="#dc2626" style="background:#dc2626"></button>
+            </div>
+            <input type="hidden" id="tplAccent" value="#6366f1">
+          </div>
+        </div>
+        <div class="field">
+          <span class="label">Thumbnail style</span>
+          <div class="proj-thumbs" id="tplThumbOptions">
+            <button type="button" class="proj-thumb-opt active">
+              <div class="mini" style="background:#6366f1"><span style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:60%;height:70%;border-radius:6px;background:#fff"></span></div>
+              <span class="min-label">Hero</span>
+            </button>
+            <button type="button" class="proj-thumb-opt">
+              <div class="mini" style="background:linear-gradient(135deg,#8b5cf6,#d946ef)"><span style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:60%;height:70%;border-radius:6px;background:#fff"></span></div>
+              <span class="min-label">Split</span>
+            </button>
+            <button type="button" class="proj-thumb-opt">
+              <div class="mini" style="background:linear-gradient(135deg,#14b8a6,#0d9488)"><span style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:60%;height:70%;border-radius:6px;background:#fff"></span></div>
+              <span class="min-label">Grid</span>
+            </button>
+            <button type="button" class="proj-thumb-opt">
+              <div class="mini" style="background:linear-gradient(135deg,#f59e0b,#ef4444)"><span style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:60%;height:70%;border-radius:6px;background:#fff"></span></div>
+              <span class="min-label">Form</span>
+            </button>
+          </div>
+          <input type="hidden" id="tplLayout" value="hero">
+        </div>
+        <div class="setting-row">
+          <div class="setting-info">
+            <h4 style="font-size:14px">Mark as Featured</h4>
+            <p style="font-size:13px">Showcase this template on the templates homepage.</p>
+          </div>
+          <div class="setting-control">
+            <button class="toggle" role="switch" aria-checked="false" aria-label="Featured" data-toggle-setting="tplFeatured"></button>
+          </div>
+        </div>
+        <input type="hidden" id="tplId" value="">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-ghost" data-modal-close>Cancel</button>
+        <button type="submit" class="btn btn-primary" id="saveTemplateBtn"><svg class="icon"><use href="#i-save"></use></svg> Save template</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Confirm dialog -->
+<div class="confirm-overlay" id="confirmOverlay">
+  <div class="confirm-dialog">
+    <div class="confirm-body">
+      <div class="icon-wrap" id="confirmIcon"><svg class="icon"><use href="#i-alert"></use></svg></div>
+      <h3 id="confirmTitle">Are you sure?</h3>
+      <p id="confirmText">This action cannot be undone.</p>
+    </div>
+    <div class="confirm-footer">
+      <button class="btn btn-ghost" id="confirmCancel">Cancel</button>
+      <button class="btn btn-danger" id="confirmOk">Confirm</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/app.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>
